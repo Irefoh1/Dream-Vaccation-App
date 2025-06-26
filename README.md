@@ -23,13 +23,26 @@ This application allows users to create a list of countries they'd like to visit
 - **Remove Countries**: Users can remove countries from their list.
 - **Production-Ready Setup**: The project is designed to be scalable and maintainable, following industry-standard practices for deployment and CI/CD.
 
-## Roadmap
-- **CI/CD Implementation**: Automate the build, test, and deployment process using industry-standard CI/CD tools.
-- **Infrastructure as Code (IaC)**: Implement IaC for automated environment setup and management.
-- **Scalability**: Enhance the application to support multiple environments (staging, production) with proper domain names and configurations.
-- **Security**: Utilize Kubernetes Secrets and environment variables for secure data management.
-- **Microservices**: Modularize the application into microservices to improve maintainability and scalability.
+## Containerization
+1. Write Dockerfiles for the Frontend and Backend based on the backend technology
+2. Create a .dockerignore file for backend and add these files: node_modules, npm-debug.log, .env       Contributing.md, README.md
+3. Create a .dockerignore file for frontend and add these files: node_modules, npm-debug.log, .env, Contributing.md, README.md
+4. Write your docker-compose.yml file.
+5. Run the docker compose command to build and run everything `docker-compose up --build -d`
+6. Containers are running locally and you can view the frontend at  http://localhost:3000
 
+## Deployment to the Cloud
+- We are using 
+` **Amazon EC2** (for hosting the app)
+- **Amazon RDS** (for managed MySQL database)
+- **DockerHub** for container distribution
+- Tag and push images to dockerhub
+- Provision an EC2 instance and add inbound rules to the security group for ports 22 (SSH), 3000 (frontend), and 3001 (backend)
+- SSH into the server and install docker and dependencies. Also install MySQL client
+- Set up RDS in the cloud and ensure open port 3306. Note the endpoint. Create a db called dreamvacation
+- Dump local db and upload it to EC2
+- Send db from EC2 to RDS`mysql -h <rds-endpoint> -u admin -p --database=dreamvacation < dreamvacation.sql`
+- Deploy application on EC2 with docker compose `docker-compose up --build`
 ## Technologies Used
 - **Frontend**: React
 - **Backend**: Node.js with Express
